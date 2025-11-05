@@ -1,0 +1,10 @@
+out/
+*.gch
+*.so
+*.o
+*.a
+*.log
+*.exe
+*.bin
+__pycache__/
+.DS_Store
