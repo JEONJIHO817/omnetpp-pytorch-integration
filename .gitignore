@@ -4,7 +4,7 @@ out/
 *.o
 *.a
 *.log
-*.exe
-*.bin
 __pycache__/
+*.pt
+*.tgz
 .DS_Store
