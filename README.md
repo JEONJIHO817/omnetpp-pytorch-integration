@@ -24,8 +24,7 @@ flora 오른쪽 클릭 후, properties에서 아래 항목들 추가(+ 상단에
 ---
 
 이후, flora 오른쪽 클릭 -> Clean Project -> Build Project -> NetworkServerApp.cc에 아래 코드를 추가
-
-
+```cpp
 #include "torch/torch.h"
 
 void NetworkServerApp::initialize(int stage)
@@ -35,15 +34,14 @@ void NetworkServerApp::initialize(int stage)
     std::cout << "Uniform Random Tensor:\n" << random_uniform_tensor << std::endl;
     ...
 }
-
+```
 
 ---
 
 # 모델 export
 
 터미널에서 flora 프로젝트 안에 `exported_model.py` 작성
-
-python
+```python
 import torch
 import torch.nn as nn
 
@@ -59,13 +57,12 @@ model = TinyNet().eval()
 example_input = torch.randn(1, 4)
 traced = torch.jit.trace(model, example_input) # 모델을 C++에서 동작시키기 위한 API => python 코드를 저장하는게 아닌 Pytorch가 직접 예제를 가지고 연산을 수행하면서 연산 흐름을 trace에서 모델을 저장함
 traced.save("example.pt")
-
+```
 
 ---
 
 `python3 export_model.py`로 pt파일 생성 후, omnet++ ide에서 networkserverapp.cc에 아래 코드 추가
-
-
+```cpp
 #include "torch/torch.h"
 #include "torch/script.h"
 ...
@@ -84,5 +81,4 @@ void NetworkServerApp::initialize(int stage)
         std::cerr << "Error: " << e.what() << std::endl;
     }
 }
-
-
+```
